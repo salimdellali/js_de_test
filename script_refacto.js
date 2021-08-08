@@ -1,6 +1,6 @@
 'use strict';
 
-var data = [
+const data = [
 	{
 		Cheese: 22.2,
 		CHOCOLATE: 10.3,
@@ -59,7 +59,7 @@ function getLabels(dataWithTotal) {
 }
 
 function generateGraphValues({ keys, dataWithTotal }) {
-	var graphValues = keys
+	const graphValues = keys
 		.filter((key) => key !== 'period')
 		.map((key) => {
 			const data = dataWithTotal.map((record) => {
