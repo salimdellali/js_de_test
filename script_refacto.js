@@ -26,8 +26,6 @@ generateGraph();
 function generateGraph() {
 	// prepare graph values
 	const dataWithTotal = createDataWithTotal(data);
-	console.log({ data });
-	console.log({ dataWithTotal });
 	const keys = getKeys(dataWithTotal);
 	const labels = getLabels(dataWithTotal);
 	const graphValues = generateGraphValues({ keys, dataWithTotal });
@@ -59,18 +57,14 @@ function createDataWithTotal(data) {
 	});
 }
 
-function getLabels(dataWithTotal) {
-	var labels = [];
-
-	for (var i = 0; i < dataWithTotal.length; i++) {
-		labels.push(dataWithTotal[i]['period']);
-	}
-
-	return labels;
-}
-
 function getKeys(dataWithTotal) {
 	return Object.keys(dataWithTotal[0]);
+}
+
+function getLabels(dataWithTotal) {
+	return dataWithTotal.map((record) => {
+		return record['period'];
+	});
 }
 
 function generateGraphValues({ keys, dataWithTotal }) {
