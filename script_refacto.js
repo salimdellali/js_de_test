@@ -26,21 +26,11 @@ generateGraph();
 function generateGraph() {
 	// prepare graph values
 	const dataWithTotal = createDataWithTotal(data);
-	console.log({ data });
-	console.log({ dataWithTotal });
 	const keys = getKeys(dataWithTotal);
 	const labels = getLabels(dataWithTotal);
 	const graphValues = generateGraphValues({ keys, dataWithTotal });
 
-	// display graph values
-	const ctx = document.getElementById('myChart').getContext('2d');
-	const myChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: labels,
-			datasets: graphValues,
-		},
-	});
+	displayGraph({ labels, graphValues });
 }
 
 function createDataWithTotal(data) {
@@ -95,4 +85,15 @@ function generateGraphValues({ keys, dataWithTotal }) {
 		});
 
 	return graphValues;
+}
+
+function displayGraph({ labels, graphValues }) {
+	const ctx = document.getElementById('myChart').getContext('2d');
+	const myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: labels,
+			datasets: graphValues,
+		},
+	});
 }
