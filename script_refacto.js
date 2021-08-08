@@ -35,16 +35,31 @@ function generateGraph() {
 
 function createDataWithTotal(data) {
 	return data.map((record) => {
-		let total = 0;
-		for (const key in record) {
-			if (key !== 'period') {
-				total += record[key];
-			}
-		}
+		// console.log(record);
+		const filtredRecordEntries = Object.entries(record).filter(
+			([key, value]) => key !== 'period'
+		);
+		console.log(filtredRecordEntries);
+		const total = Object.values(
+			Object.fromEntries(filtredRecordEntries)
+		).reduce((accumulator, currentValue) => accumulator + currentValue);
+		// console.log(Object.values(filtredRecordEntries));
+
 		return {
 			...record,
 			total: total / 3,
 		};
+
+		// let total = 0;
+		// for (const key in record) {
+		// 	if (key !== 'period') {
+		// 		total += record[key];
+		// 	}
+		// }
+		// return {
+		// 	...record,
+		// 	total: total / 3,
+		// };
 	});
 }
 
