@@ -26,11 +26,11 @@ generateGraph();
 function generateGraph() {
 	// prepare graph values
 	const dataWithTotal = createDataWithTotal(data);
+	console.log({ data });
+	console.log({ dataWithTotal });
 	const keys = getKeys(dataWithTotal);
 	const labels = getLabels(dataWithTotal);
 	const graphValues = generateGraphValues({ keys, dataWithTotal });
-	console.log({ dataWithTotal });
-	console.log({ graphValues });
 
 	// display graph values
 	const ctx = document.getElementById('myChart').getContext('2d');
@@ -44,18 +44,17 @@ function generateGraph() {
 }
 
 function createDataWithTotal(data) {
-	// for data immutability
-	const deepCloneData = JSON.parse(JSON.stringify(data));
-
-	return deepCloneData.map((record) => {
+	return data.map((record) => {
 		let total = 0;
 		for (const key in record) {
 			if (key !== 'period') {
 				total += record[key];
 			}
 		}
-		record.total = total / 3;
-		return record;
+		return {
+			...record,
+			total: total / 3,
+		};
 	});
 }
 
