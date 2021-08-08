@@ -29,6 +29,8 @@ function generateGraph() {
 	const keys = getKeys(dataWithTotal);
 	const labels = getLabels(dataWithTotal);
 	const graphValues = generateGraphValues({ keys, dataWithTotal });
+	console.log({ dataWithTotal });
+	console.log({ graphValues });
 
 	// display graph values
 	const ctx = document.getElementById('myChart').getContext('2d');
@@ -68,13 +70,16 @@ function getLabels(dataWithTotal) {
 }
 
 function generateGraphValues({ keys, dataWithTotal }) {
-	var graphValues = [];
+	var graphValues = keys
+		.filter((key) => key !== 'period')
+		.map((key) => {
+			const data = dataWithTotal.map((record) => {
+				return record[key];
+			});
 
-	for (var i = 0; i < keys.length; i++) {
-		if (keys[i] !== 'period') {
-			var temp = {
-				label: keys[i],
-				data: [],
+			return {
+				label: key,
+				data,
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',
@@ -88,14 +93,7 @@ function generateGraphValues({ keys, dataWithTotal }) {
 					'rgba(75, 192, 192, 1)',
 				],
 			};
-
-			for (var n = 0; n < dataWithTotal.length; n++) {
-				temp.data.push(dataWithTotal[n][keys[i]]);
-			}
-
-			graphValues.push(temp);
-		}
-	}
+		});
 
 	return graphValues;
 }
