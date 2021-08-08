@@ -24,10 +24,10 @@ const data = [
 generateGraph();
 
 function generateGraph() {
-	// prepare graph values
+	// prepare arguments to display the graph
 	const dataWithTotal = createDataWithTotal(data);
 	const keys = getKeys(dataWithTotal);
-	const labels = getLabels(dataWithTotal);
+	const labels = getPeriodLabels(dataWithTotal);
 	const graphValues = generateGraphValues({ keys, dataWithTotal });
 
 	displayGraph({ labels, graphValues });
@@ -52,14 +52,14 @@ function getKeys(dataWithTotal) {
 	return Object.keys(dataWithTotal[0]);
 }
 
-function getLabels(dataWithTotal) {
+function getPeriodLabels(dataWithTotal) {
 	return dataWithTotal.map((record) => {
 		return record['period'];
 	});
 }
 
 function generateGraphValues({ keys, dataWithTotal }) {
-	const graphValues = keys
+	return keys
 		.filter((key) => key !== 'period')
 		.map((key) => {
 			const data = dataWithTotal.map((record) => {
@@ -83,8 +83,6 @@ function generateGraphValues({ keys, dataWithTotal }) {
 				],
 			};
 		});
-
-	return graphValues;
 }
 
 function displayGraph({ labels, graphValues }) {
